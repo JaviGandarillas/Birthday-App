@@ -1,0 +1,24 @@
+<section class="backgrounding">
+  <div class="all">
+    <div class="innerSection">
+      <img class="baloon" src="assets/baloon.png">
+      <div class="tittles">
+        <h2 class="tittle">¡Feliz no cumpleaños!</h2>
+        <p>Descubre cuántos días faltan para tu cumpleaños</p>
+      </div>
+      <form class="form" [formGroup]="userForm">
+        <div class="singleLabel">
+          <label for="userName">Nombre:</label>
+          <input type="text" id="userName" formControlName="userName">
+        </div>
+        <div class="singleLabel">
+          <label for="userDate">Fecha de nacimiento:</label>
+          <input type="date" id="userDate" formControlName="userDate">
+        </div>
+      </form>
+
+      <button class="btn" (click)="sendForm()"> Enviar </button>
+    </div>
+  </div>
+</section>
+<app-modal #modal [childMessage]="errorMessage"></app-modal>
