@@ -24,7 +24,7 @@
   border-radius: 10px;
   flex-direction: column;
   justify-content: center;
-  background: linear-gradient(to bottom left, #fee069, #b540e3);
+  background: linear-gradient(to top left, #b540e3,#fee069);
   box-shadow: 1px 1px 5px 1px #090909;
   padding: 30px;
   width: 500px;
@@ -58,8 +58,7 @@ p {
   padding: 0 40px;
   border-radius: 10px;
   background-color: #faf7f1;
-  box-shadow: 1px 1px 5px 1px #59343e;
-  display: flex;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, .5), 7px 7px 20px 0px rgba(0, 0, 0, .5), 4px 4px 5px 0px rgba(0, 0, 0, .1);  display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
@@ -115,8 +114,7 @@ input::after {
   background-color: #fee069;
   display: block;
   border: 0;
-  box-shadow: 1px 1px 5px 1px #4b1851;
-  width: 40%;
+box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, .5), 7px 7px 10px 0px rgba(0, 0, 0, .5), 4px 4px 5px 0px rgba(0, 0, 0, .1);  width: 40%;
 }
 
 .btn:hover {
