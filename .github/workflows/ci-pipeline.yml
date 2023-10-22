@@ -1,0 +1,62 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - feature/*  # Se ejecutará en cualquier rama con el nombre feature/*
+      - main  # Se ejecutará en la rama main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código fuente
+        uses: actions/checkout@v2
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18  # Reemplaza con la versión de Node.js que necesites
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Ejecutar pruebas unitarias
+        run: npm test
+
+      - name: Compilar la aplicación
+        run: npm run build
+
+      - name: Crear imagen Docker candidata
+        if: startsWith(github.ref, 'refs/heads/feature/')
+        run: |
+          docker build -t docker.pkg.github.com/${{ github.repository_owner }}/${{ github.repository_name }}:${{ github.head_ref }} .
+          docker push docker.pkg.github.com/${{ github.repository_owner }}/${{ github.repository_name }}:${{ github.head_ref }}
+
+  publish:
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout código fuente
+        uses: actions/checkout@v2
+
+      - name: Configurar Docker
+        uses: docker/setup-qemu-action@v1
+
+      - name: Iniciar sesión en GitHub Container Registry
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u ${{ github.repository_owner }} --password-stdin
+
+      - name: Extraer la versión desde angular.json
+        run: echo "export VERSION=$(jq -r '.version' angular.json)"
+
+      - name: Construir y etiquetar la imagen Docker final
+        run: |
+          docker build -t docker.pkg.github.com/${{ github.repository_owner }}/${{ github.repository_name }}:${{ env.VERSION }} .
+          docker tag docker.pkg.github.com/${{ github.repository_owner }}/${{ github.repository_name }}:${{ env.VERSION }} docker.pkg.github.com/${{ github.repository_owner }}/${{ github.repository_name }}:latest
+
+      - name: Publicar imagen en GitHub Container Registry
+        run: |
+          docker push docker.pkg.github.com/${{ github.repository_owner }}/${{ github.repository_name }}:${{ env.VERSION }}
+          docker push docker.pkg.github.com/${{ github.repository_owner }}/${{ github.repository_name }}:latest
