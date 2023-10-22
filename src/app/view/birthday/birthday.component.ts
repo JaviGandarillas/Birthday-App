@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ModalComponent } from '../modal/modal.component';
 import { BirthdayService } from 'src/app/Services/to-spring-boot.service';
+import { BirthdayData } from 'src/app/Interface/interace';
 
 @Component({
   selector: 'app-birthday',
@@ -12,7 +13,7 @@ export class BirthdayComponent {
   @ViewChild('modal') modal!: ModalComponent;
   userForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private consumirApi: BirthdayService,) {
+  constructor(private fb: FormBuilder, private consumirApi: BirthdayService) {
     this.userForm = fb.group({
       userName: [''],
       userDate: ['']
@@ -21,36 +22,34 @@ export class BirthdayComponent {
   errorMessage: string = '';
 
   sendForm() {
-    let currentUserName = this.userForm.value.userName;
-    let currentUserDate = new Date(this.userForm.value.userDate);
-    const isoDateString = currentUserDate.toISOString().split('T')[0];
-    console.log(isoDateString, 1);
+    let formData: BirthdayData = {
+      userName: this.userForm.value.userName,
+      userDate: this.userForm.value.userDate
+    };
 
-    if (currentUserName === '' || currentUserDate === null) {
+    if (!formData.userName || !formData.userDate || isNaN(new Date(formData.userDate).getTime())) {
       this.errorMessage = 'Por favor, rellena todos los campos para continuar';
       this.modal.openModal();
     } else {
+      const isoDateString = new Date(formData.userDate).toISOString().split('T')[0];
       const birthday = {
         date: isoDateString,
       };
-      console.log(birthday)
+
       this.consumirApi.calculateDaysUntilNextBirthday(birthday).subscribe(
         (response) => {
-          if(response === 0){
+          if (response === 0) {
             this.errorMessage = '¡Felicidades! Hoy sí es tu cumpleaños :D';
             this.modal.openModal();
           } else {
-          this.errorMessage = '¡Feliz no cumpleaños, ' + currentUserName + '! ' + 'Faltan ' + response + ' días para tu cumpleaños :)';
-          this.modal.openModal();
-          console.log(response)
-        }
+            this.errorMessage = '¡Feliz no cumpleaños, ' + formData.userName + '! ' + 'Faltan ' + response + ' días para tu cumpleaños :)';
+            this.modal.openModal();
+          }
         },
         (error) => {
           console.error(error);
         }
-        
       );
     }
   }
 }
-

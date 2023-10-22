@@ -10,7 +10,7 @@ export class BirthdayService {
 
     constructor(private http: HttpClient) { }
 
-    calculateDaysUntilNextBirthday(birthday: any): Observable<any> {
+    calculateDaysUntilNextBirthday(birthday: {}): Observable<any> {
         return this.http.post<any>(this.apiUrl, birthday);
     }
 }
