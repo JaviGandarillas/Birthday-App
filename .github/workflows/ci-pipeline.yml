@@ -31,8 +31,8 @@ jobs:
       - name: Crear imagen Docker candidata
         if: startsWith(github.ref, 'refs/heads/feature/')
         run: |
-          docker build -t docker.pkg.github.com/JaviGandarillas/BirthdayFront${{ github.head_ref }} .
-          docker push docker.pkg.github.com/JaviGandarillas/BirthdayFront${{ github.head_ref }}
+          docker build -t docker.pkg.github.com/JaviGandarillas/birthdayfront${{ github.head_ref }} .
+          docker push docker.pkg.github.com/JaviGandarillas/birthdayfront${{ github.head_ref }}
 
 
   deploy:
