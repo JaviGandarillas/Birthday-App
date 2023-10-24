@@ -29,8 +29,8 @@ jobs:
         run: npm run build
 
       - name: docker login
-      run: | # log into docker hub account
-        docker login -u ${{ secrets.LOGIN_SECRET}} -p ${{ secrets.LOGIN_SECRET_2}}
+        run: | # log into docker hub account
+          docker login -u ${{ secrets.LOGIN_SECRET}} -p ${{ secrets.LOGIN_SECRET_2}}
 
       - name: Crear imagen Docker candidata
         if: startsWith(github.ref, 'refs/heads/feature/')
