@@ -31,9 +31,8 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          registry: registry.***
           username: ${{ secrets.LOGIN_SECRET }}
-          password: ${{ secrets.LOGIN_SECRET_2 }}
+          password: ${{ secrets.DOCKER_SECRET }}
 
       - name: Crear imagen Docker candidata
         if: startsWith(github.ref, 'refs/heads/feature/')
