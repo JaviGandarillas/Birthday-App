@@ -28,11 +28,12 @@ jobs:
       - name: Compilar la aplicación
         run: npm run build
 
-      - name: Crear imagen Docker candidata
+            - name: Crear imagen Docker candidata
         if: startsWith(github.ref, 'refs/heads/feature/')
         run: |
-          docker build -t docker.pkg.github.com/JaviGandarillas/<BirthdayFront>:${{ github.head_ref }} .
-          docker push docker.pkg.github.com/JaviGandarillas/<BirthdayFront>:${{ github.head_ref }}
+          docker build -t docker.pkg.github.com/JaviGandarillas/BirthdayFront${{ github.head_ref }} .
+          docker push docker.pkg.github.com/JaviGandarillas/BirthdayFront${{ github.head_ref }}
+
 
   deploy:
     needs: build
