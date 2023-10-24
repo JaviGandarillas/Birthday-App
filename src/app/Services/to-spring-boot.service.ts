@@ -1,3 +1,8 @@
+//==========================Servicio
+/* 
+ * Este servicio se encarga de realizar peticiones HTTP para calcular los días restantes
+ * hasta el próximo cumpleaños a partir de una fecha de cumpleaños proporcionada.
+ */
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
