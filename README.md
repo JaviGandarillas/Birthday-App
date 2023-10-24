@@ -34,4 +34,4 @@ Para ejecutar la aplicación, sigue estos pasos:
 
 ## Contribución
 
-Si deseas contribuir a este proyecto o tienes alguna sugerencia, no dudes en contactar.
+Si deseas contribuir a este proyecto o tienes alguna sugerencia, no dudes en ponerte en contacto.
