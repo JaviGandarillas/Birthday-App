@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ModalComponent } from '../modal/modal.component';
 import { BirthdayService } from 'src/app/Services/to-spring-boot.service';
@@ -9,7 +9,7 @@ import { BirthdayData } from 'src/app/Interface/interace';
   templateUrl: './birthday.component.html',
   styleUrls: ['./birthday.component.css']
 })
-export class BirthdayComponent {
+export class BirthdayComponent implements OnInit {
   @ViewChild('modal') modal!: ModalComponent;
   userForm: FormGroup;
 
@@ -20,6 +20,10 @@ export class BirthdayComponent {
     });
   }
   errorMessage: string = '';
+
+  ngOnInit() {
+    // Implementa la lógica de inicialización aquí si es necesaria
+  }
 
   sendForm() {
     let formData: BirthdayData = {
