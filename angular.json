@@ -73,26 +73,11 @@
           "options": {
             "browserTarget": "birthday-project:build"
           }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
-            "tsConfig": "tsconfig.spec.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.css"
-            ],
-            "scripts": []
-          }
         }
       }
     }
-  }
+  },
+  "cli": {
+    "analytics": "29ceddf4-7679-482c-a5c8-6611df35b5b0"
+}
 }
